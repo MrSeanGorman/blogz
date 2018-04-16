@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="/newpost" method="POST">
+    <label>
+            Title for your new blog:
+            <input type="text" name='blog_title'{% if newpost_title %} value= '{{ newpost_title }}'{% endif %}/>
+    </label>
+    <br/>
+    <label>
+            Your new blog:
+            <textarea name='blog_content'>{% if newpost_content %}{{ newpost_content }}{% endif %}</textarea>
+    </label>
+    <br/>
+    <input type="submit" value='Add Blog' />
+    <br/>
+    {% if error %}
+        <p class='error'>{{ error }}</p>
+    {% endif %}
+</form>
+{% endblock %}
