@@ -12,7 +12,6 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120))
     body = db.Column(db.String(1000))
-    print("LINE 15")
     def __init__(self, title, body):
         self.title = title
         self.body = body
@@ -27,19 +26,12 @@ def index():
 
 @app.route('/blog')
 def blog():
-    print("def blog")
     if request.args.get('id') != None:
-        print("/blog if")
         blogpost_id = int(request.args.get('id'))
         blogpost = Blog.query.get(blogpost_id)
-        print("blogpost.title =" + blogpost.title +" blopost.body =" + blogpost.body)
         return render_template('blogpost.html', title=blogpost.title, blog_content=blogpost.body)
         
     else:
-        print("/blog else")
-        blog_posts = get_blogs()
-        print("about to print blog_posts")
-        print(blog_posts)
         return render_template('blog.html',title="Build A Blog", blog_posts=get_blogs())
 
 @app.route('/newpost', methods=['POST', 'GET'])
@@ -48,10 +40,8 @@ def newpost():
         newpost_title = request.form['blog_title']
         newpost_content = request.form['blog_content']
         if newpost_title == '' or newpost_content == '':
-            return render_template('newpost.html', title="Add a Blog Entry", newpost_title=newpost_title, newpost_content=newpost_content, error="Fill in all fields") 
-        print("LINE 33")
+            return render_template('newpost.html', title="Add a Blog Entry", newpost_title=newpost_title, newpost_content=newpost_content, error="Fill in all fields")
         newpost = Blog(title=newpost_title, body=newpost_content)
-        print("LINE 35")
         db.session.add(newpost)
         db.session.commit()
         newpost = Blog.query.order_by(Blog.id.desc()).first()
