@@ -31,7 +31,7 @@ def blog():
     if request.args.get('id') != None:
         print("/blog if")
         blogpost_id = int(request.args.get('id'))
-        blogpost = Blog.query.get(blogpost_id)#.filter_by(id=blogpost_id).all()
+        blogpost = Blog.query.get(blogpost_id)
         print("blogpost.title =" + blogpost.title +" blopost.body =" + blogpost.body)
         return render_template('blogpost.html', title=blogpost.title, blog_content=blogpost.body)
         
@@ -56,7 +56,7 @@ def newpost():
         db.session.commit()
         newpost = Blog.query.order_by(Blog.id.desc()).first()
         newpost_id = newpost.id
-        return redirect('/blog?id={0}'.format(newpost_id)) #title=newpost_title, blog_content=newpost_content)
+        return redirect('/blog?id={0}'.format(newpost_id))
     else:
         return render_template('newpost.html', title="Add a Blog Entry")
     
