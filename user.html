@@ -6,7 +6,7 @@
     <div>
     <a href="/blog?id={{ blog.id }}"><h2>{{  blog.title  }}</h2></a>
     <p>{{  blog.body  }}</p>
-    <p>Written by <a href="/blog?user={{  blog.owner_id }}">{{  blog.owner.username  }}</a></p>
+    <p>Written by <a href={{  user.id  }}>{{  user.username  }}</a></p>
     </div>
     <hr />
 {% endfor %}
@@ -17,4 +17,3 @@
 {% endif %}
 
 {% endblock %}
-
